@@ -1,0 +1,13 @@
+.example-card {
+  max-width: 200px;
+
+  img{
+    max-height: 150px;
+    object-fit: cover;
+
+  }
+}
+
+.example-header-image {
+  background-size: cover;
+}

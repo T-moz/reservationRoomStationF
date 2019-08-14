@@ -1,0 +1,29 @@
+<mat-card class="example-card">
+  <img mat-card-image [src]="roomService.rooms[index].photo" />
+  <mat-card-title>
+    {{ roomService.rooms[index].name }}
+  </mat-card-title>
+  <mat-card-content>
+    <h4 style="color: #3F51B5" *ngIf="reservationService.roomAviable[index] !== 'indisponible'">Disponible</h4>
+    <h4 style="color: #F44336" *ngIf="reservationService.roomAviable[index] === 'indisponible'">Indisponible</h4>
+    <p style="color: #F44336" *ngIf="reservationService.roomAviable[index] === 'notGood'">Ne correspond pas à votre recherche</p>
+
+    <p>Capacité: {{ roomService.rooms[index].capacity }}</p>
+
+    <p>Equipement:</p>
+    <div *ngIf="roomService.rooms[index].equipements">
+      <p *ngIf="roomService.rooms[index].equipements[0]">
+            -- {{ roomService.rooms[index].equipements[0].name }}
+      </p>
+      <p *ngIf="roomService.rooms[index].equipements[1]">
+            -- {{ roomService.rooms[index].equipements[1].name }}
+      </p>
+    </div>
+    <p *ngIf="!roomService.rooms[index].equipements">-- Aucun</p>
+
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="reserver()" [disabled]="reservationService.roomAviable[index] === 'indisponible'">Reserver</button>
+  </mat-card-actions>
+</mat-card>

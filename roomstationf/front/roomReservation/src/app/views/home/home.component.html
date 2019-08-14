@@ -1,0 +1,112 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="example-spacer"></span>
+    <span>Réservation salle</span>
+  </mat-toolbar-row></mat-toolbar
+>
+
+<!-- Date input for the reservation-->
+<mat-card>
+  <mat-card-title>
+    Choisissez une plage horaire de réservation.
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="dateFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Date de réservation</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          [min]="minDate"
+          placeholder="Date de réservation"
+          formControlName="dateCtrl"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <!-- time input for the reservation-->
+      <mat-form-field appearance="outline">
+        <mat-label>Heure de début</mat-label>
+        <input
+          matInput
+          placeholder="Heure de début"
+          [format]="24"
+          [ngxTimepicker]="picker2"
+          formControlName="startCtrl"
+        />
+        <ngx-material-timepicker
+          #picker2
+          [format]="24"
+          [minutesGap]="30"
+        ></ngx-material-timepicker>
+        <mat-icon matSuffix>access_time</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Heure de fin</mat-label>
+        <input
+          matInput
+          placeholder="Heure de fin"
+          [format]="24"
+          [ngxTimepicker]="picker3"
+          formControlName="endCtrl"
+        />
+        <ngx-material-timepicker
+          #picker3
+          [format]="24"
+          [minutesGap]="30"
+        ></ngx-material-timepicker>
+        <mat-icon matSuffix>access_time</mat-icon>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>
+    Filtez votre recherche.
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="filterFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Capacité minimum</mat-label>
+        <input
+          matInput
+          placeholder="0"
+          formControlName="capacityCtrl"
+          type="number"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Equipement</mat-label>
+        <mat-select [formControl]="equipment" multiple>
+          <mat-option
+            *ngFor="let equipment of equipmentList"
+            [value]="equipment"
+            >{{ equipment }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <button
+      mat-button
+      matTooltip="Rechercher une salle."
+      (click)="search()"
+      [disabled]="dateFormGroup.invalid"
+    >
+      Recherche
+    </button>
+  </mat-card-content>
+</mat-card>
+<mat-spinner *ngIf="searching"></mat-spinner>
+<div class="lineRooms" *ngIf='reservationService.roomAviable.length > 0'>
+  <app-room
+    *ngFor="let aRoom of roomService.rooms; index as i"
+    [index]="i"
+  ></app-room>
+</div>
