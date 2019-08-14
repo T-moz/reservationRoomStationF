@@ -13,7 +13,7 @@ Pour pouvoir établir une connexion entre le serveur et le client, il faut désa
 par exemple allez dans le dossier d'installation de chrome, et tapez la commande suvante :
 chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
 
-Il est nécéssare de lancer le client dans cette fenetre du navigateur.
+Il est nécéssare de lancer le client dans cette fenetre non sécurisé du navigateur.
 
 Pour lancer le serveur :
 run node app.js in folder roomstationf/back
